@@ -31,9 +31,16 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+    const flagText =
+        variant === "on-sale"
+            ? "Sale"
+            : variant === "new-release"
+            ? "Just Released!"
+            : "";
     return (
         <Link href={`/shoe/${slug}`}>
             <Wrapper>
+                <Flag variant={variant}>{flagText}</Flag>
                 <ImageWrapper>
                     <Image alt="" src={imageSrc} />
                 </ImageWrapper>
@@ -57,7 +64,26 @@ const Link = styled.a`
     flex: 1 1 30%;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+    position: relative;
+    isolation: isolate;
+`;
+
+const Flag = styled.div`
+    display: ${({ variant }) => (variant === "default" ? "none" : "block")};
+    position: absolute;
+    right: -4px;
+    top: 12px;
+    width: max-content;
+    padding: 5px 10px;
+    color: white;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 2px;
+    background-color: ${({ variant }) =>
+        variant === "on-sale" ? "#C5295D" : "#6868d9"};
+`;
 
 const ImageWrapper = styled.div`
     position: relative;
